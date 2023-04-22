@@ -20,7 +20,7 @@ jobs:
 
       - name: Build Solution
         run: |
-          MSBuild.exe /p:Configuration=Release /p:Platform=x86 Osiris.sln
+          "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe /p:Configuration=Release /p:Platform=x86 Osiris.sln"
           
   release:
     needs: build
