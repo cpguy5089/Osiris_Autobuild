@@ -1,22 +1,26 @@
 name: Autobuild
-
+# Shoutout to ChatGPT for helping me work through this cause I don't know anything
 on:
   workflow_dispatch:
   push:
     branches:
       - main
 
-jobs:
-  build:
+jobs:build:
     runs-on: windows-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v2
-
-      - name: Build solution
+      
+      - name: Install Visual Studio Build Tools
         run: |
-          "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe -p:Configuration=Release;Platform=x64 Osiris.sln"
+          choco install visualstudio2019buildtools --package-parameters "--includeRecommended --includeOptional"
+          choco install visualstudio2019-workload-vctools --package-parameters "--includeRecommended --includeOptional"
 
+      - name: Build Solution
+        run: |
+          MSBuild.exe /p:Configuration=Release /p:Platform=x86 Osiris.sln
+          
   release:
     needs: build
     runs-on: windows-latest
