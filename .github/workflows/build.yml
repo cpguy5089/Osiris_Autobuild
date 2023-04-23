@@ -77,6 +77,10 @@ jobs:
 #          asset_name: Osiris-${{ steps.set_release_tag.outputs.result }}.dll
 #          asset_content_type: application/octet-stream
 
+
+      - name: DebuggingTime
+        run: tree /f
+
       - name: Upload Release Artifact
         uses: actions/upload-artifact@v2.2.3
         with:
