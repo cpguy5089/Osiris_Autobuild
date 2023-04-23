@@ -23,7 +23,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.1
 
       - name: Build app for release
-        run: msbuild Osiris.sln -property:Configuration=Release;Platform=x86
+        run: msbuild Osiris.sln -property:Configuration=Release -property:Platform=x86
  
  
   release:
