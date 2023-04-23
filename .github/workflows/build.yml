@@ -24,7 +24,9 @@ jobs:
 
       - name: Build app for release
         run: msbuild Osiris.sln -property:Configuration=Release -property:Platform=x86
- 
+ # the dll builds properly here but disappears down the line??? huh???
+ # D:\a\Osiris_Autobuild\Osiris_Autobuild\Release\Osiris.dll
+ # Relative: Release\Osiris.dll
  
   release:
     needs: build
@@ -36,10 +38,7 @@ jobs:
       - name: Get current time
         id: current_time
         run: echo "::set-output name=time::$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-        
-      - name: RandomDebugging
-        run: tree /f Release
-        
+    
 #      - name: Set release tag
 #        uses: actions/github-script@v4
 #        with:
@@ -82,7 +81,7 @@ jobs:
         uses: actions/upload-artifact@v2.2.3
         with:
           name: OsirisDLL
-          path: Release\Osiris.dll
+          path: Osiris.dll
           
       - name: Download Release Artifact
         uses: actions/download-artifact@v2.0.9
