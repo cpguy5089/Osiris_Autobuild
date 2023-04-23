@@ -37,6 +37,9 @@ jobs:
         id: current_time
         run: echo "::set-output name=time::$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
         
+      - name: RandomDebugging
+        run: tree /f Release
+        
 #      - name: Set release tag
 #        uses: actions/github-script@v4
 #        with:
