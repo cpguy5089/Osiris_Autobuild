@@ -27,6 +27,17 @@ jobs:
  # the dll builds properly here but disappears down the line??? huh???
  # D:\a\Osiris_Autobuild\Osiris_Autobuild\Release\Osiris.dll
  # Relative: Release\Osiris.dll
+ # EDIT NEVERMIND I KNOW WHAT I DID WRONG
+      - name: Get it into the safe zone
+        shell: cmd
+        run: move /y Release\Osiris.dll Osiris.dll
+        
+      - name: Upload Release Artifact
+        uses: actions/upload-artifact@v2.2.3
+        with:
+          name: Osiris
+          path: Osiris.dll
+
  
   release:
     needs: build
@@ -76,21 +87,11 @@ jobs:
 #          asset_path: Osiris\bin\Release\Osiris.dll
 #          asset_name: Osiris-${{ steps.set_release_tag.outputs.result }}.dll
 #          asset_content_type: application/octet-stream
-
-
-      - name: DebuggingTime
-        run: tree /f
-
-      - name: Upload Release Artifact
-        uses: actions/upload-artifact@v2.2.3
-        with:
-          name: OsirisDLL
-          path: Osiris.dll
           
       - name: Download Release Artifact
         uses: actions/download-artifact@v2.0.9
         with:
-          name: OsirisDLL
+          name: Osiris
 
       - name: Automatic Releases
         uses: marvinpinto/action-automatic-releases@latest
