@@ -13,15 +13,21 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       
-      - name: Install Visual Studio Build Tools
-        run: |
-          choco install visualstudio2019buildtools --package-parameters "--includeRecommended --includeOptional"
-          choco install visualstudio2019-workload-vctools --package-parameters "--includeRecommended --includeOptional"
+#      - name: Install Visual Studio Build Tools
+#        run: |
+#          choco install visualstudio2019buildtools --package-parameters "--includeRecommended --includeOptional"
+#          choco install visualstudio2019-workload-vctools --package-parameters "--includeRecommended --includeOptional"
 
-      - name: Build Solution
-        run: |
-          "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe /p:Configuration=Release /p:Platform=x86 Osiris.sln"
-          
+#      - name: Build Solution
+#        run: |
+#          "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe /p:Configuration=Release /p:Platform=x86 Osiris.sln"
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: Build app for release
+        run: msbuild Osiris.sln -property:Configuration=Release;Platform=x86
+ 
+ 
   release:
     needs: build
     runs-on: windows-latest
